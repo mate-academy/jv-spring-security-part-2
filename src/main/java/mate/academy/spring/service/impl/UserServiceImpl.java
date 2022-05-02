@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> findByEmail(String email) {
+        System.out.println("user service found user by email");
         return userDao.findByEmail(email);
     }
 }
