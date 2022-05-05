@@ -1,26 +1,33 @@
 package mate.academy.spring.model;
 
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 @Entity
-@Table(name = "movies")
-public class Movie {
+@Table(name = "roles")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
-    private String description;
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "role_name")
+    private RoleName roleName;
+
+    public enum RoleName {
+        USER,
+        ADMIN
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -30,14 +37,12 @@ public class Movie {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Movie movie = (Movie) o;
-        return Objects.equals(id, movie.id)
-                && Objects.equals(title, movie.title)
-                && Objects.equals(description, movie.description);
+        Role role = (Role) o;
+        return Objects.equals(id, role.id) && roleName == role.roleName;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description);
+        return Objects.hash(id, roleName);
     }
 }
