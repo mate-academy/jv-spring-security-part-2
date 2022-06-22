@@ -33,6 +33,7 @@ public class MovieController {
     @PostMapping
     public MovieResponseDto add(@RequestBody @Valid MovieRequestDto requestDto) {
         Movie movie = movieService.add(movieRequestDtoMapper.mapToModel(requestDto));
+        System.out.println(movie);
         return movieResponseDtoMapper.mapToDto(movie);
     }
 
