@@ -1,0 +1,21 @@
+package mate.academy.spring.controller;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
+
+public class IndexController {
+    @GetMapping("/")
+    public String hello(Authentication authentication) {
+        return String.format("Hello, %s!", authentication.getName());
+    }
+
+    @GetMapping("/admin")
+    public String helloAdmin() {
+        return "Hello admin!";
+    }
+
+    @GetMapping("/user")
+    public String helloUser() {
+        return "Hello user!";
+    }
+}
