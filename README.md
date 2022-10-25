@@ -69,3 +69,4 @@ public void inject() {
 ```
 
 __You can check yourself using this__ [checklist](https://mate-academy.github.io/jv-program-common-mistakes/java-spring/security-part-2/jv-spring-security-checklist)
+"# cinema-app" 
