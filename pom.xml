@@ -93,6 +93,13 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>2.13.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jberet.test-apps/postConstruct -->
+        <dependency>
+            <groupId>org.jberet.test-apps</groupId>
+            <artifactId>postConstruct</artifactId>
+            <version>1.0.0.Beta2</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>
