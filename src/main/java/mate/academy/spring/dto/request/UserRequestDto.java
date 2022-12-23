@@ -1,9 +1,11 @@
 package mate.academy.spring.dto.request;
 
 import javax.validation.constraints.Size;
+import lombok.Getter;
 import mate.academy.spring.lib.FieldsValueMatch;
 import mate.academy.spring.lib.ValidEmail;
 
+@Getter
 @FieldsValueMatch(
         field = "password",
         fieldMatch = "repeatPassword",
@@ -14,17 +16,6 @@ public class UserRequestDto {
     private String email;
     @Size(min = 8, max = 40)
     private String password;
+
     private String repeatPassword;
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getRepeatPassword() {
-        return repeatPassword;
-    }
 }

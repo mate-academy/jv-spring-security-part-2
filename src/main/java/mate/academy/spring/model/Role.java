@@ -1,25 +1,26 @@
 package mate.academy.spring.model;
 
-import java.util.Set;
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "users")
+@Table(name = "roles")
 @Data
-public class User {
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
-    private String email;
-    private String password;
-    @ManyToMany
-    private Set<Role> roles;
+    @Enumerated(value = EnumType.STRING)
+    private RoleName roleName;
+
+    public enum RoleName {
+        ADMIN,
+        USER
+    }
 }
