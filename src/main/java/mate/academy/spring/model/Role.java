@@ -11,15 +11,19 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "movies")
+@Table(name = "roles")
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
-public class Movie {
+public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    private String title;
-    private String description;
+    private RoleType roleType;
+
+    public enum RoleType {
+        USER,
+        ADMIN
+    }
 }
