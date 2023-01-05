@@ -15,6 +15,7 @@ public class UserRequestDto {
     @Size(min = 8, max = 40)
     private String password;
     private String repeatPassword;
+    private String role;
 
     public String getEmail() {
         return email;
@@ -26,5 +27,9 @@ public class UserRequestDto {
 
     public String getRepeatPassword() {
         return repeatPassword;
+    }
+
+    public String getRole() {
+        return role;
     }
 }
