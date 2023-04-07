@@ -1,5 +1,6 @@
 package mate.academy.spring.service.impl;
 
+import java.util.Set;
 import mate.academy.spring.model.User;
 import mate.academy.spring.service.AuthenticationService;
 import mate.academy.spring.service.ShoppingCartService;
@@ -10,11 +11,14 @@ import org.springframework.stereotype.Service;
 public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserService userService;
     private final ShoppingCartService shoppingCartService;
+    private final RoleServiceImp roleServiceImp;
 
     public AuthenticationServiceImpl(UserService userService,
-                                     ShoppingCartService shoppingCartService) {
+                                     ShoppingCartService shoppingCartService,
+                                     RoleServiceImp roleServiceImp) {
         this.userService = userService;
         this.shoppingCartService = shoppingCartService;
+        this.roleServiceImp = roleServiceImp;
     }
 
     @Override
@@ -22,6 +26,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         User user = new User();
         user.setEmail(email);
         user.setPassword(password);
+        user.setRoles(Set.of(roleServiceImp.getByName("USER")));
         userService.add(user);
         shoppingCartService.registerNewShoppingCart(user);
         return user;
