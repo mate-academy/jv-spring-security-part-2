@@ -1,12 +1,12 @@
 package mate.academy.spring.dto.request;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Length;
 
 public class MovieRequestDto {
-    @NotNull
+    @NotEmpty(message = "Please enter title of movie")
     private String title;
-    @Size(max = 200)
+    @Length(max = 255, message = "Please note, that description must be less than 255 characters")
     private String description;
 
     public String getTitle() {

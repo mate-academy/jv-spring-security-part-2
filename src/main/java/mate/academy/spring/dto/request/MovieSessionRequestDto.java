@@ -9,7 +9,7 @@ public class MovieSessionRequestDto {
     private Long movieId;
     @Positive
     private Long cinemaHallId;
-    @NotNull
+    @NotNull(message = "Please enter date and time of movie session. Example: 2022-10-13T10:15:30")
     private LocalDateTime showTime;
 
     public Long getMovieId() {

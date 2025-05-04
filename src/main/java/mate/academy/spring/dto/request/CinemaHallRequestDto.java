@@ -1,12 +1,12 @@
 package mate.academy.spring.dto.request;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.DecimalMin;
+import org.hibernate.validator.constraints.Length;
 
 public class CinemaHallRequestDto {
-    @Min(10)
+    @DecimalMin(value = "0", message = "Please enter capacity more than 0")
     private int capacity;
-    @Size(max = 200)
+    @Length(max = 255, message = "Please note, that description must be less than 255 characters")
     private String description;
 
     public int getCapacity() {
