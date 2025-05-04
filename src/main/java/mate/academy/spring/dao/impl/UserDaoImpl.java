@@ -27,4 +27,18 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
             throw new DataProcessingException("User with email " + email + " not found", e);
         }
     }
+
+    @Override
+    public Optional<User> get(Long id) {
+        try (Session session = factory.openSession()) {
+            Query<User> getUser = session.createQuery(
+                    "FROM User u "
+                            + "INNER JOIN FETCH u.roles "
+                            + "WHERE u.id = :id", User.class);
+            getUser.setParameter("id", id);
+            return getUser.uniqueResultOptional();
+        } catch (Exception e) {
+            throw new DataProcessingException("Can't found user by id " + id, e);
+        }
+    }
 }
