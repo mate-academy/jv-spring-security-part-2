@@ -1,6 +1,7 @@
 package mate.academy.spring.service.impl;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import mate.academy.spring.dao.CinemaHallDao;
 import mate.academy.spring.model.CinemaHall;
 import mate.academy.spring.service.CinemaHallService;
@@ -22,7 +23,7 @@ public class CinemaHallServiceImpl implements CinemaHallService {
     @Override
     public CinemaHall get(Long id) {
         return cinemaHallDao.get(id).orElseThrow(
-                () -> new RuntimeException("Can't get cinema hall by id " + id));
+                () -> new NoSuchElementException("Can't get cinema hall by id " + id));
     }
 
     @Override
