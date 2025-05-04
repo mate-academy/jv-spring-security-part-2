@@ -43,4 +43,5 @@ public class CinemaHallController {
                 .map(cinemaHallResponseDtoMapper::mapToDto)
                 .toList();
     }
+
 }
