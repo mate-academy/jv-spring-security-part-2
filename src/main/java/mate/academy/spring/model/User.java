@@ -1,10 +1,14 @@
 package mate.academy.spring.model;
 
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,6 +20,11 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
+    @ManyToMany
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
     public Long getId() {
         return id;
@@ -41,10 +50,22 @@ public class User {
         this.password = password;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> role) {
+        this.roles = role;
+    }
+
     @Override
     public String toString() {
-        return "User{"
-                + "id=" + id
-                + ", email='" + email + '\'' + '}';
+        final StringBuffer sb = new StringBuffer("User{");
+        sb.append("id=").append(id);
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", password='").append(password).append('\'');
+        sb.append(", roles=").append(roles);
+        sb.append('}');
+        return sb.toString();
     }
 }
