@@ -1,27 +1,46 @@
 package mate.academy.spring.config;
 
+import mate.academy.spring.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private static final String USER_ROLE = Role.RoleName.USER.name();
+    private static final String ADMIN_ROLE = Role.RoleName.ADMIN.name();
+    private final UserDetailsService userDetailsService;
+    private final PasswordEncoder passwordEncoder;
+
+    public SecurityConfig(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+        this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
+    }
+
     @Autowired
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .passwordEncoder(getEncoder())
-                .withUser("1@123").password(getEncoder().encode("123")).roles("USER");
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
+        http.authorizeRequests()
+                .antMatchers("/register").permitAll()
+                .antMatchers(HttpMethod.GET, "/cinema-halls", "/movies",
+                        "/movie-sessions/available").hasAnyRole(ADMIN_ROLE, USER_ROLE)
+                .antMatchers(HttpMethod.POST, "/cinema-halls",
+                        "/movies", "/movie-sessions").hasRole(ADMIN_ROLE)
+                .antMatchers(HttpMethod.GET, "/users/by-email").hasRole(ADMIN_ROLE)
+                .antMatchers(HttpMethod.PUT, "/movie-sessions/{id}").hasRole(ADMIN_ROLE)
+                .antMatchers(HttpMethod.DELETE, "/movie-sessions/{id}").hasRole(ADMIN_ROLE)
+                .antMatchers(HttpMethod.POST, "/orders/complete").hasRole(USER_ROLE)
+                .antMatchers(HttpMethod.GET, "/orders", "/shopping-carts/by-user")
+                .hasRole(USER_ROLE)
+                .antMatchers(HttpMethod.PUT, "/movie-sessions").hasRole(USER_ROLE)
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -30,10 +49,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .csrf().disable();
-    }
-
-    @Bean
-    public PasswordEncoder getEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }

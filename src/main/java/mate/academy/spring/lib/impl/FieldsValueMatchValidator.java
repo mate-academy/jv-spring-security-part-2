@@ -1,8 +1,9 @@
-package mate.academy.spring.lib;
+package mate.academy.spring.lib.impl;
 
 import java.util.Objects;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import mate.academy.spring.lib.FieldsValueMatch;
 import org.springframework.beans.BeanWrapperImpl;
 
 public class FieldsValueMatchValidator
