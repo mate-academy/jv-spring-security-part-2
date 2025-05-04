@@ -1,4 +1,4 @@
-package mate.academy.spring.config;
+package mate.academy.spring.config.initializer;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

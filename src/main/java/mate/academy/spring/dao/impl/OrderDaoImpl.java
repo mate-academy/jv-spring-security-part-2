@@ -22,10 +22,10 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
         try (Session session = factory.openSession()) {
             Query<Order> getByUser = session.createQuery(
                     "SELECT DISTINCT o FROM Order o "
-                            + "join fetch o.tickets t "
-                            + "join fetch t.movieSession ms "
-                            + "join fetch ms.cinemaHall "
-                            + "join fetch ms.movie "
+                            + "JOIN FETCH o.tickets t "
+                            + "JOIN FETCH t.movieSession ms "
+                            + "JOIN FETCH ms.cinemaHall "
+                            + "JOIN FETCH ms.movie "
                             + "WHERE o.user = :user", Order.class);
             getByUser.setParameter("user", user);
             return getByUser.getResultList();
