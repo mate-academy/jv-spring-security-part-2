@@ -1,18 +1,26 @@
 package mate.academy.spring.service.impl;
 
+import java.util.HashSet;
+import java.util.Set;
+import mate.academy.spring.model.Role;
 import mate.academy.spring.model.User;
 import mate.academy.spring.service.AuthenticationService;
+import mate.academy.spring.service.RoleService;
 import mate.academy.spring.service.ShoppingCartService;
 import mate.academy.spring.service.UserService;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
+    private static final String USER_ROLE_NAME = "USER";
+    private final RoleService roleService;
     private final UserService userService;
     private final ShoppingCartService shoppingCartService;
 
-    public AuthenticationServiceImpl(UserService userService,
+    public AuthenticationServiceImpl(RoleService roleService,
+                                     UserService userService,
                                      ShoppingCartService shoppingCartService) {
+        this.roleService = roleService;
         this.userService = userService;
         this.shoppingCartService = shoppingCartService;
     }
@@ -22,6 +30,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         User user = new User();
         user.setEmail(email);
         user.setPassword(password);
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleService.getByName(USER_ROLE_NAME));
+        user.setRoles(roles);
         userService.add(user);
         shoppingCartService.registerNewShoppingCart(user);
         return user;
