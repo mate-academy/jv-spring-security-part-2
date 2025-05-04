@@ -1,8 +1,11 @@
 package mate.academy.spring.dto.response;
 
+import java.util.Set;
+
 public class UserResponseDto {
     private Long id;
     private String email;
+    private Set<Long> roleIds;
 
     public Long getId() {
         return id;
@@ -18,5 +21,13 @@ public class UserResponseDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<Long> getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(Set<Long> roleIds) {
+        this.roleIds = roleIds;
     }
 }
