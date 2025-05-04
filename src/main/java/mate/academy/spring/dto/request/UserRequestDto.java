@@ -1,5 +1,6 @@
 package mate.academy.spring.dto.request;
 
+import java.util.List;
 import javax.validation.constraints.Size;
 import mate.academy.spring.lib.FieldsValueMatch;
 import mate.academy.spring.lib.ValidEmail;
@@ -16,6 +17,8 @@ public class UserRequestDto {
     private String password;
     private String repeatPassword;
 
+    private List<String> roles;
+
     public String getEmail() {
         return email;
     }
@@ -26,5 +29,9 @@ public class UserRequestDto {
 
     public String getRepeatPassword() {
         return repeatPassword;
+    }
+
+    public List<String> getRoles() {
+        return roles;
     }
 }
