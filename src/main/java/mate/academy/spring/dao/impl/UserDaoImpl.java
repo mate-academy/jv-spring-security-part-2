@@ -1,5 +1,6 @@
 package mate.academy.spring.dao.impl;
 
+import java.util.List;
 import java.util.Optional;
 import mate.academy.spring.dao.AbstractDao;
 import mate.academy.spring.dao.UserDao;
@@ -20,11 +21,19 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     public Optional<User> findByEmail(String email) {
         try (Session session = factory.openSession()) {
             Query<User> findByEmail = session.createQuery(
-                    "FROM User WHERE email = :email", User.class);
+                    "FROM User u INNER JOIN FETCH u.roles WHERE email = :email", User.class);
             findByEmail.setParameter("email", email);
             return findByEmail.uniqueResultOptional();
         } catch (Exception e) {
             throw new DataProcessingException("User with email " + email + " not found", e);
+        }
+    }
+
+    @Override
+    public List<User> getAll() {
+        try (Session session = factory.openSession()) {
+            return session.createQuery("FROM User u "
+                    + "INNER JOIN FETCH u.roles", User.class).getResultList();
         }
     }
 }
