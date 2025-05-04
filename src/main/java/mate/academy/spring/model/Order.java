@@ -68,6 +68,7 @@ public class Order {
                 + "id=" + id
                 + ", tickets=" + tickets
                 + ", orderTime=" + orderTime
-                + ", user=" + user + '}';
+                + ", user=" + user
+                + '}';
     }
 }

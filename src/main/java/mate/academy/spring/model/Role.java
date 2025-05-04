@@ -1,20 +1,28 @@
 package mate.academy.spring.model;
 
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "movies")
-public class Movie {
+@Table(name = "roles")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
-    private String description;
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "role_name")
+    private RoleName roleName;
+
+    public enum RoleName {
+        ADMIN, USER
+    }
 
     public Long getId() {
         return id;
@@ -24,20 +32,12 @@ public class Movie {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public RoleName getRoleName() {
+        return roleName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setRoleName(RoleName roleName) {
+        this.roleName = roleName;
     }
 
     @Override
@@ -48,23 +48,20 @@ public class Movie {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Movie movie = (Movie) o;
-        return Objects.equals(id, movie.id)
-                && Objects.equals(title, movie.title)
-                && Objects.equals(description, movie.description);
+        Role role = (Role) o;
+        return Objects.equals(id, role.id) && roleName == role.roleName;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description);
+        return Objects.hash(id, roleName);
     }
 
     @Override
     public String toString() {
-        return "Movie{"
+        return "Role{"
                 + "id=" + id
-                + ", title='" + title + '\''
-                + ", description='" + description + '\''
+                + ", roleName=" + roleName
                 + '}';
     }
 }
