@@ -3,6 +3,7 @@ package mate.academy.spring.service.impl;
 import java.util.Optional;
 import mate.academy.spring.dao.UserDao;
 import mate.academy.spring.model.User;
+import mate.academy.spring.service.RoleService;
 import mate.academy.spring.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder encoder;
     private final UserDao userDao;
 
-    public UserServiceImpl(PasswordEncoder encoder, UserDao userDao) {
+    public UserServiceImpl(PasswordEncoder encoder, UserDao userDao,RoleService roleService) {
         this.encoder = encoder;
         this.userDao = userDao;
     }
