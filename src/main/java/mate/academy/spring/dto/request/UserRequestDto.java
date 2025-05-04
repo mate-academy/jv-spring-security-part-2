@@ -9,6 +9,7 @@ import mate.academy.spring.lib.ValidEmail;
         fieldMatch = "repeatPassword",
         message = "Passwords do not match!"
 )
+
 public class UserRequestDto {
     @ValidEmail
     private String email;
