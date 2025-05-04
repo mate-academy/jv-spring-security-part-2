@@ -12,7 +12,7 @@ import mate.academy.spring.lib.ValidEmail;
 public class UserRequestDto {
     @ValidEmail
     private String email;
-    @Size(min = 8, max = 40)
+    @Size(min = 4, max = 40)
     private String password;
     private String repeatPassword;
 
